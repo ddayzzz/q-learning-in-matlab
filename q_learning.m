@@ -1,4 +1,4 @@
-function [Q, M, HA, HQ, HP] = q_learning(M, src, SR,SC, dest, seed,gamma,alpha,epsilon,lambda,maxIt,maxEp,doReport)
+function [Q, M, HA, HQ, HP] = q_learning(M, SR,SC, dest, seed,gamma,alpha,epsilon,lambda,maxIt,maxEp,doReport)
 % Q学习(这里是Q(lambda))
 % -------------------------------------------------------------------------
 %   
@@ -7,8 +7,8 @@ function [Q, M, HA, HQ, HP] = q_learning(M, src, SR,SC, dest, seed,gamma,alpha,e
 %   
 %   输入 :
 %   M        - 处理后的矩阵, 必须是 M[nrows, ncolumns, 4]
-%   src      - 起点[x,y]
-%   S        - 
+%   SR       - 所有可行的起点的垂直的方向
+%   SC       - 所有可行的起点的水平的方向
 %   dest     - 终点[x,y]
 %   seed     - 随机数种子
 %   gamma    - 折扣的长期回报的衰减因子
