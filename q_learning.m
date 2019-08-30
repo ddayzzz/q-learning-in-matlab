@@ -30,7 +30,9 @@ function [Q, M, HA, HQ, HP] = q_learning(M, SR,SC, dest, seed,gamma,alpha,epsilo
     [nr,nc,~] = size(M);
     
     % 设置随机数发生器
-    rng(seed);
+    if exist('rng') ~= 0
+        rng(seed);
+    end
 
     % 某一路径长度在 episodes 出现了多次,那么就认为是最优的
     repeats = 2 * max([nr,nc]);  
@@ -72,7 +74,7 @@ function [Q, M, HA, HQ, HP] = q_learning(M, SR,SC, dest, seed,gamma,alpha,epsilo
         % s0 = src;
         r = randi(max_states, 1);
         s0 = [SR(r), SC(r)];
-        fprintf("采样起点: %d,%d\n", s0(1), s0(2));
+        fprintf('采样起点: %d,%d\n', s0(1), s0(2));
         % 构造记录策略的矩阵
         HP(:,:,episode) = zeros(nr, nc);
         % 循环开始

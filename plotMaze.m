@@ -26,11 +26,27 @@ if(~exist('only_path') || only_path == 0)
 else
     only_path = 1;
 end
-%% 绘制Q值(平面)
+
 [nr, nc, ~] = size(Q);
 [~, ~, episodes] = size(HP);
-
-if ~only_path
+%% 版本检查
+gt_2017a = ~verLessThan('MATLAB', '9.2');
+is_greater_2016b = ~verLessThan('MATLAB', '9.1');
+msg_2017a = '热力图需要 Matlab >= 2017a';
+msg_2016b = 'strings 函数需要 Matlab >= 2016b';
+if ~gt_2017a && ~is_greater_2016b
+    warndlg([msg_2016b, ',', msg_2017a]);
+else
+    if ~gt_2017a
+        warndlg(msg_2017a);
+    else
+        if ~is_greater_2016b
+            warndlg(msg_2016b);
+        end
+    end
+end
+%% 绘制Q值(平面)
+if ~only_path && gt_2017a  % >= matlab 2017a
     figure();
     heatmap(Q);
     colorbar();
@@ -49,9 +65,9 @@ if ~only_path
     a = 1;
     t = linspace(1, episodes, episodes);
     y = filter(b,a,r);
-    plot(t,r);
+    plot(t,r, 'Color', 'blue');
     hold on;
-    plot(t,y);
+    plot(t,y, 'Color', 'red');
     
     strMaze = sprintf('%ix%i',nr,nc);
     strProcess = sprintf([ ...
@@ -81,7 +97,9 @@ if ~only_path
     % 绘制箭头, 左上右下和静止
     arrows = ['×', '←', '↑', '→', '↓', 'o'];
     final_p = HP(:,:,1);
-    final_p_text = strings(nr, nc);
+    if is_greater_2016b
+        final_p_text = strings(nr, nc);
+    end
     for i=2:episodes
         for j=1:nr
             for k=1:nc
@@ -91,7 +109,10 @@ if ~only_path
                 end
                 % 是否生成?
                 if(i == episodes)
-                    final_p_text(j ,k) = arrows(final_p(j, k) + 1);
+                    if is_greater_2016b
+                        final_p_text(j ,k) = arrows(final_p(j, k) + 1);
+                    end
+                    
                     
                 end
             end
@@ -103,9 +124,10 @@ if ~only_path
     
     colormap(summer);
     % 修改起点和终点的显示
-    final_p_text(dest(1), dest(2)) = 'd';  % d 的值是随机给定, 因为这个是终点, 不会出现被更新的情况
-    
-    text(C(:), R(:),final_p_text,'HorizontalAlignment','left');
+    if is_greater_2016b
+        final_p_text(dest(1), dest(2)) = 'd';  % d 的值是随机给定, 因为这个是终点, 不会出现被更新的情况
+        text(C(:), R(:),final_p_text,'HorizontalAlignment','left', 'FontSize', 14);
+    end
     xlabel('C');
     ylabel('R');
     title(sprintf('每个网格对应的最优方向, 终点(%i,%i)', dest(1), dest(2)));
@@ -132,9 +154,11 @@ if ~only_path
     % 行为的颜色映射. 左上右下和静止
     colormap([1,1,1;1,0,0;0,1,0]);
     % 绘制路径
-    final_p_text(src(1), src(2)) = 's';
-    
-    text(C(:), R(:),final_p_text,'HorizontalAlignment','left');
+    if is_greater_2016b
+        final_p_text(src(1), src(2)) = 's';
+        text(C(:), R(:),final_p_text,'HorizontalAlignment','left', 'FontSize', 14);
+    end
+ 
     xlabel('C');
     ylabel('R');
     title(sprintf('(%i,%i)到(%i,%i)的路径', src(1), src(2), dest(1), dest(2)));

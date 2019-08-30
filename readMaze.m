@@ -7,8 +7,8 @@ function [M, OM, SR, SC] = readMaze()
 %   输出 :
 %   M       - 地图, [nrows,ncolumns, 4]. M(:,:,i) i 是 左上右下的分量
 %  OM       - 原始地图, 矩阵格式 [nrows,ncolumns] 1 表示不能进入 0 表示空
-%   SR       - 输出所有的可以访问的状态列表
-%   SC
+%  SR       - 所有可行的起点的垂直的方向
+%  SC       - 所有可行的起点的水平的方向
 
 TM5_5 = [
     0,0,0,0,0;

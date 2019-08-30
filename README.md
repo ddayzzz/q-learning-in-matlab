@@ -8,6 +8,8 @@
 
 ## 需求
 基于 Matlab 2019a 开发. 需要使用部分函数进行绘图:
+
 函数|Matlab版本的最低需求
 -|-
 heatmap|Matlab 2017a
+strings|Matlab 2016b
