@@ -5,7 +5,29 @@
 2. `q_learning.m`: Q学习的核心算法
 3. `plotMaze.m`: 绘制平均路径, 地图和各个点的最佳方向
 4. `actions.m`: 定义动作空间
+5. `plotQ.m`: 单独保存某一次迭代的Q矩阵图像, 默认保存为目录下的`images`文件夹
+6. `main.m`: 执行主要功能
+## 说明
+如果需要修改起始点, 并绘制相关的路径, 可以在`main.m`运行完`q_learning`函数之后, 修改`start`并运行
 
+```matlab
+start = [2,3];
+plotMaze(OM, Q, HA, HP, start, dest, seed, gamma, alpha,epsilon,lambda);
+```
+代码即可绘制其他起点的图像.
+## 结果
+1. 输出的Q值矩阵(迭代1000次):
+
+![](docs/final_q.jpg)
+2. 各个状态的采取的最优的行为:
+
+![](docs/dir.jpg)
+3. 最优的路径:
+
+![](docs/optimal_path.jpg)
+4. 平均的回报:
+
+![](docs/average_score.jpg)
 ## 需求
 基于 Matlab 2019a 开发. 需要使用部分函数进行绘图:
 
