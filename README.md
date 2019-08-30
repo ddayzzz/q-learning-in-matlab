@@ -19,15 +19,19 @@ plotMaze(OM, Q, HA, HP, start, dest, seed, gamma, alpha,epsilon,lambda);
 1. 输出的Q值矩阵(迭代1000次):
 
 ![](docs/final_q.jpg)
+
 2. 各个状态的采取的最优的行为:
 
 ![](docs/dir.jpg)
+
 3. 最优的路径:
 
 ![](docs/optimal_path.jpg)
+
 4. 平均的回报:
 
 ![](docs/average_score.jpg)
+
 ## 需求
 基于 Matlab 2019a 开发. 需要使用部分函数进行绘图:
 
